@@ -207,7 +207,8 @@ CREATE TABLE Orders
     street VARCHAR(20) NOT NULL,
     branchID INT NOT NULL,
     cusID INT NOT NULL,
-    FOREIGN KEY (branchID) REFERENCES Branch(branchID)
+    FOREIGN KEY (branchID) REFERENCES Branch(branchID),
+    FOREIGN KE(cusID)) REFERENCES Customer(userID)
 );
 
 CREATE TABLE Voucher(
