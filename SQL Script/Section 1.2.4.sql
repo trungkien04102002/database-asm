@@ -20,11 +20,11 @@ BEGIN
     END IF;
 
 	OPEN $orderLogs;
-	FETCH $orderLogs INTO $price;
 	cal_sum: LOOP
 		FETCH $orderLogs INTO $price;
-		IF done = 1 THEN LEAVE cal_sum;
-        SET $sum = $sum + $price;
+		IF done = 1 THEN 
+			LEAVE cal_sum;
+			SET $sum = $sum + $price;
 		END IF;
 	END LOOP;
 	CLOSE $orderLogs;
