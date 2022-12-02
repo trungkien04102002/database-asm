@@ -107,6 +107,7 @@ CREATE TABLE Category
 (	
     cateID INT PRIMARY KEY AUTO_INCREMENT,
     dishName VARCHAR(40) NOT NULL UNIQUE,
+    numberOfDishes INT DEFAULT 0,
     cateDescription TEXT(200) 
 );
 
@@ -148,7 +149,8 @@ CREATE TABLE ComboComponent
     quantity INT NOT NULL DEFAULT 1,
     comboName VARCHAR(40) NOT NULL,
     dishID	INT	NOT NULL,
-    FOREIGN KEY(comboName) REFERENCES Combo(comboName)
+    FOREIGN KEY(comboName) REFERENCES Combo(comboName),
+    FOREIGN KEY(dishID) REFERENCES Dish(dishID)
 ); 
 
 CREATE TABLE WithSideDish

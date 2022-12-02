@@ -56,6 +56,7 @@ BEGIN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
 	END IF;
 
+
 END;|
 
 
@@ -134,4 +135,5 @@ CALL updateCustomer(1,'nguyenthu123@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zO
 ,'Nguyễn Thi A', '1989-12-23','M');
 
 -- -----------------------------
+CALL deleteCustomer(0);
 CALL deleteCustomer(1);
