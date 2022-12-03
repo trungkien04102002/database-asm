@@ -35,23 +35,36 @@ END|
 DROP TRIGGER IF EXISTS `update_num_of_dishes_in_categories_when_updating_dish` |
 CREATE TRIGGER `update_num_of_dishes_in_categories_when_updating_dish` AFTER UPDATE ON Dish
 FOR EACH ROW
-BEGIN
+main: BEGIN
 	DECLARE $cateID INT;
+	DECLARE $temp INT DEFAULT -1;
 	DECLARE done BOOLEAN DEFAULT FALSE;
 	DECLARE $belongToCates CURSOR FOR SELECT cateID FROM BelongTo WHERE dishID = NEW.dishID;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
-	IF (NEW.isAvailable = false AND OLD.isAvailable = true)
-    THEN
-		OPEN $belongToCates;
-		cal_sum: LOOP
-			FETCH $belongToCates INTO $cateID;
-			IF done = 1 THEN 
-				UPDATE Category SET numOfDishes = numOfDishes - 1 WHERE cateID = $cateID;
-			END IF;
-		END LOOP;
-		CLOSE $belongToCates;
+	IF (NEW.isAvailable = true AND OLD.isAvailable = false) 
+    THEN 
+		SET $temp = 1;
+	ELSEIF (NEW.isAvailable = OLD.isAvailable) THEN 
+		LEAVE main;
     END IF;
+    
+	OPEN $belongToCates;
+	cal: LOOP
+		FETCH $belongToCates INTO $cateID;
+		IF done = 1 THEN 
+			LEAVE cal;
+		END IF;
+		UPDATE Category SET numberOfDishes = numberOfDishes + $temp WHERE cateID = $cateID;
+	END LOOP;
+	CLOSE $belongToCates;
 END|
 
 DELIMITER ;
+
+UPDATE Dish SET dishDescription = "Ngon ngon ngon ghê" WHERE dishID = 1;
+UPDATE Dish SET isAvailable = false  WHERE dishID = 1;
+UPDATE Dish SET isAvailable = true  WHERE dishID = 1;
+UPDATE Dish SET isAvailable = false  WHERE dishID = 12;
+UPDATE Dish SET isAvailable = true  WHERE dishID = 12;
+

@@ -82,7 +82,7 @@ CREATE TABLE BranchPhoneNumber
 CREATE TABLE Dish 
 (	
 	dishID	INT PRIMARY KEY AUTO_INCREMENT,
-	dishName VARCHAR(40) NOT NULL UNIQUE,
+	dishName VARCHAR(40) NOT NULL,
 	size CHAR(1),
 	isAvailable BOOL NOT NULL DEFAULT true ,
 	dishDescription TEXT(400),
@@ -106,7 +106,7 @@ CREATE TABLE EatWith
 CREATE TABLE Category
 (	
     cateID INT PRIMARY KEY AUTO_INCREMENT,
-    dishName VARCHAR(40) NOT NULL UNIQUE,
+    cateName VARCHAR(40) NOT NULL UNIQUE,
     numberOfDishes INT DEFAULT 0,
     cateDescription TEXT(200) 
 );
@@ -138,7 +138,7 @@ CREATE TABLE Combo
 (
     comboID INT PRIMARY KEY AUTO_INCREMENT,
     unitPrice DOUBLE DEFAULT 250000,
-    comboName VARCHAR(40) NOT NULL UNIQUE,
+    comboName VARCHAR(100) NOT NULL UNIQUE,
     resID	INT	NOT NULL,
     FOREIGN KEY(resID) REFERENCES Restaurant(resID)
 );
@@ -147,7 +147,7 @@ CREATE TABLE ComboComponent
 (
     componentID INT PRIMARY KEY AUTO_INCREMENT,
     quantity INT NOT NULL DEFAULT 1,
-    comboName VARCHAR(40) NOT NULL,
+    comboName VARCHAR(100) NOT NULL,
     dishID	INT	NOT NULL,
     FOREIGN KEY(comboName) REFERENCES Combo(comboName),
     FOREIGN KEY(dishID) REFERENCES Dish(dishID)
@@ -185,7 +185,7 @@ CREATE TABLE VoucherExchangeByScore(
   FOREIGN KEY(resID) REFERENCES Restaurant(resID)
 );
 
-CREATE TABLE VouhcerExchangeByCoin(
+CREATE TABLE VoucherExchangeByCoin(
   programID INT PRIMARY KEY AUTO_INCREMENT,
   priceDiscount INT NOT NULL,
   exchangingScore INT NOT NULL,

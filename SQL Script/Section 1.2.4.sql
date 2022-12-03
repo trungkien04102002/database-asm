@@ -24,8 +24,8 @@ BEGIN
 		FETCH $orderLogs INTO $price;
 		IF done = 1 THEN 
 			LEAVE cal_sum;
-			SET $sum = $sum + $price;
 		END IF;
+		SET $sum = $sum + $price;
 	END LOOP;
 	CLOSE $orderLogs;
 	
@@ -49,7 +49,7 @@ BEGIN
         RETURN "NOT RATED";
     END IF;
     
-    SELECT  AVERAGE(rating) AS averageRate INTO $averageRate FROM Rating WHERE dishID = $dishID ;
+    SELECT  AVG(rating) AS averageRate INTO $averageRate FROM Rating WHERE dishID = $dishID ;
 
 	IF ($averageRate < 1) THEN 
 		RETURN "AWFUL";
@@ -67,4 +67,16 @@ BEGIN
 END |
 delimiter ;
 
-SELECT calculate_sum_of_money_paid(10); -- USER NOT EXIST ---
+-- ------------
+SELECT calculate_sum_of_money_paid(100);  -- USER NOT EXIST ---
+SELECT calculate_sum_of_money_paid(2);
+SELECT calculate_sum_of_money_paid(1);
+-- ----------------------------------------
+
+SELECT get_rank_dish(10);
+SELECT get_rank_dish(5);
+SELECT get_rank_dish(4);
+SELECT get_rank_dish(2);
+SELECT get_rank_dish(3);
+SELECT get_rank_dish(12);
+
