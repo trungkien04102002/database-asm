@@ -1,4 +1,4 @@
-- ------------------------------ ADMIN —-------------------------- 
+-- ------------------------------ ADMIN —-------------------------- 
 INSERT INTO `orderingapp`.`admin`
 (`userID`,`userName`,`sex`,`email`,`password`,`phoneNumber`,`birthday`,`name`)
 VALUES
