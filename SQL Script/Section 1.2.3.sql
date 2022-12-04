@@ -1,15 +1,22 @@
-----------------------------------------------
+use orderingApp;
+delimiter |
 
-DROP PROCEDURE IF EXISTS Employee_Of_Branch;
-DELIMITER $$
-CREATE PROCEDURE Employee_Of_Branch(
-    IN Num INT
+-- Thủ tục liệt kê món ăn của nhà hàng bất kỳ, sắp xếp theo tên món ăn
+
+DROP PROCEDURE IF EXISTS List_Dish_Of_Restaurant|
+CREATE PROCEDURE List_Dish_Of_Restaurant(
+    IN ResID INT
 )
-proc_label:BEGIN
-    SELECT ID, employee.Name, Email, employee.Phone, Bdate, Sex, Address, Salary
-    FROM employee
-    JOIN branch ON employee.Bnumber = branch.Number
-    WHERE branch.Number = Num
-    ORDER BY Name;
-END$$
-DELIMITER ;
+BEGIN
+    DECLARE message_error VARCHAR(1000) DEFAULT '';
+    IF (NOT EXISTS (SELECT * FROM Restaurant WHERE resID = $ResID)) THEN
+		SET message_error = 'THIS RESID DOES NOT EXIST!';
+    END IF;
+    
+    IF message_error = '' THEN
+        
+    ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
+	END IF;
+END;|
+delimiter ;
