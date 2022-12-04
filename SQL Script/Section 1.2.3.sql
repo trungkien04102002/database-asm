@@ -14,9 +14,11 @@ BEGIN
     END IF;
     
     IF message_error = '' THEN
-        
+        SELECT dishName FROM Dish
+	WHERE resID = $ResID
+	ORDER BY dishName ASC;
     ELSE
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
-	END IF;
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
+    END IF;
 END;|
 delimiter ;
