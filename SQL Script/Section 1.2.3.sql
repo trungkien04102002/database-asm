@@ -35,7 +35,7 @@ BEGIN
     END IF;
     
     IF message_error = '' THEN
-        SELECT COUNT(c.userID) 
+        SELECT COUNT(DISTINCT c.userID) 
 	FROM Customer c, Orders o, Branch b
 	WHERE o.state = 'ready' AND o.branchID = b.branchID AND o.cusID = c.userID AND b.resID = $ResID;
     ELSE
@@ -44,3 +44,16 @@ BEGIN
 END;|
 
 delimiter ;
+
+------------------------------------------------------
+CALL List_Dish_Of_Restaurant(1);
+CALL List_Dish_Of_Restaurant(2);
+CALL List_Dish_Of_Restaurant(3);
+CALL List_Dish_Of_Restaurant(4);
+CALL List_Dish_Of_Restaurant(5);
+
+CALL Count_Customer_Order_Success(1);
+CALL Count_Customer_Order_Success(2);
+CALL Count_Customer_Order_Success(3);
+CALL Count_Customer_Order_Success(4);
+CALL Count_Customer_Order_Success(5);
