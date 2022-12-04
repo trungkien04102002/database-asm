@@ -49,7 +49,7 @@
                                 throw new Exception("Lack information to create new account", 400);
                             }
                             $email = $_POST["email"];
-                            $email = $_POST["userName"];
+                            $userName = $_POST["userName"];
                             $name = $_POST["name"];
                             $sex = $_POST["sex"];
                             $birthday = $_POST["birthday"];
@@ -59,6 +59,7 @@
                         };
                         break;
                     case "login":
+
                         $userName = $_POST["userName"];
                         $password = $_POST["password"];
                         $role = $_POST["role"];
@@ -66,9 +67,11 @@
                         if (!UserModel::checkUserExistence($userName)){
                             throw new Exception("User has not signed up yet!", 400);
                         }
+
                         if (!UserModel::comparePassword($userName,$password,$role)){
                             throw new Exception("Your password is incorrect!", 400);
                         }
+
                         $key = "datkienhoangphu";
                         $user = UserModel::getUserProfile($userName,$role);
                         $date   = new DateTimeImmutable();

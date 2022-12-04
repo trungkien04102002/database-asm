@@ -31,7 +31,8 @@ VALUES
 (7,'hoang7','M','hoangnguyen7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111117','Hoàng 7','1990-02-07',21),
 (8,'hoang8','M','hoangnguyen8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111118','Hoàng 8','1990-02-08',19),
 (9,'hoang9','M','hoangnguyen9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111119','Hoàng 9','1990-02-06',31),
-(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','Hoàng 10','1990-02-10',4);
+(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','Hoàng 10','1990-02-10',4),
+(11,'hoang11','M','hoangnguyen11@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','Hoàng 11','1990-02-10',0);
 
 
 

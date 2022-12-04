@@ -36,13 +36,7 @@ BEGIN
    
 END|
 
-INSERT INTO `orderingapp`.`orderlog`
-(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
-(3,7,'2022-12-01',1,1,1);
 
-INSERT INTO `orderingapp`.`orderlog`
-(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
-(11,8,'2022-12-01',1,2,3);
 -- --------- TRIGGER CẬP NHẬT SỐ LƯỢNG MÓN CỦA CÁC CATEGORY KHI MỘT DISH NÀO ĐÓ BỊ CẬP NHẬT THÀNH NOT AVAILABLE --------------
 DROP TRIGGER IF EXISTS `update_num_of_dishes_in_categories_when_updating_dish` |
 CREATE TRIGGER `update_num_of_dishes_in_categories_when_updating_dish` AFTER UPDATE ON Dish
@@ -73,6 +67,14 @@ main: BEGIN
 END|
 
 DELIMITER ;
+
+INSERT INTO `orderingapp`.`orderlog`
+(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(3,7,'2022-12-01',1,1,1);
+
+INSERT INTO `orderingapp`.`orderlog`
+(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(11,8,'2022-12-01',1,2,3);
 
 UPDATE Dish SET dishDescription = "Ngon ngon ngon ghê" WHERE dishID = 1;
 UPDATE Dish SET isAvailable = false  WHERE dishID = 1;

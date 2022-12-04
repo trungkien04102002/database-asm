@@ -38,20 +38,26 @@ END |
 -- ------------------------------THỦ TỤC THÊM CUSTOMER---------------------
 DROP PROCEDURE IF EXISTS insertCustomer | 
 CREATE PROCEDURE insertCustomer 
-	(IN userName varchar(25), IN email varchar(50) , IN password varchar(100), 
-    IN phoneNumber varchar(10), IN name varchar(25), IN birthday DATE, IN sex CHAR(1))
+	(IN $userName varchar(25), IN $email varchar(50) , IN $password varchar(100), 
+    IN $phoneNumber varchar(10), IN $name varchar(25), IN $birthday DATE, IN $sex CHAR(1))
 BEGIN
     DECLARE message_error VARCHAR(1000) DEFAULT '';
-	IF check_age_customer(birthday) = false THEN
+    IF (EXISTS (SELECT userID FROM Customer WHERE email = $email OR userName = $userName
+		UNION SELECT userID FROM Admin WHERE email = $email OR userName = $userName
+		UNION SELECT userID FROM Owner WHERE email = $email OR userName = $userName
+		UNION SELECT userID FROM Employee WHERE email = $email OR userName = $userName
+    )) THEN 
+		SET message_error = 'USER HAS ALREADY EXISTED';
+	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';
-	ELSEIF ( check_phone_customer(phoneNumber) != 'TRUE') THEN
-		SET message_error = check_phone_customer(phoneNumber) ;
-	ELSEIF ( check_email_customer(email) = false) THEN
+	ELSEIF ( check_phone_customer($phoneNumber) != 'TRUE') THEN
+		SET message_error = check_phone_customer($phoneNumber) ;
+	ELSEIF ( check_email_customer($email) = false) THEN
 		SET message_error = 'EMAIL IS NOT VALID' ;
     END IF;
     IF message_error = '' THEN
 		INSERT INTO Customer (userName,sex,email,password,phoneNumber,name,birthday) VALUES
-		(userName,sex,email,password,phoneNumber,name,birthday);
+		($userName,$sex,$email,$password,$phoneNumber,$name,$birthday);
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
 	END IF;
@@ -65,30 +71,35 @@ END;|
 -- Chỉ cho phép cập nhật lại email, birthday, sex, password, phoneNumber, name
 DROP PROCEDURE IF EXISTS updateCustomer | 
 CREATE PROCEDURE updateCustomer 
-	(IN updatedUserID INT, IN email varchar(50) , IN password varchar(100), 
-    IN phoneNumber varchar(10), IN name varchar(25), IN birthday DATE, IN sex CHAR(1))
+	(IN $updatedUserID INT, IN $email varchar(50) , IN $password varchar(100), 
+    IN $phoneNumber varchar(10), IN $name varchar(25), IN $birthday DATE, IN $sex CHAR(1))
 BEGIN
     DECLARE message_error VARCHAR(1000) DEFAULT '';
-    IF (NOT EXISTS (SELECT * FROM Customer WHERE userID = updatedUserID)) THEN
+    IF (NOT EXISTS (SELECT * FROM Customer WHERE userID = $updatedUserID)) THEN
 		SET message_error = 'THIS USERID DOES NOT EXIST!';
-	ELSEIF check_age_customer(birthday) = false THEN
+	ELSEIF (EXISTS (SELECT userID FROM Customer WHERE email = $email
+		UNION SELECT userID FROM Admin WHERE email = $email
+		UNION SELECT userID FROM Owner WHERE email = $email
+		UNION SELECT userID FROM Employee WHERE email = $email
+    )) THEN 
+		SET message_error = 'USER HAS ALREADY EXISTED';
+	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';
-	ELSEIF ( check_phone_customer(phoneNumber) != 'TRUE') THEN
-		SET message_error = check_phone_customer(phoneNumber) ;
-	ELSEIF ( check_email_customer(email) = false) THEN
+	ELSEIF ( check_phone_customer($phoneNumber) != 'TRUE') THEN
+		SET message_error = check_phone_customer($phoneNumber) ;
+	ELSEIF ( check_email_customer($email) = false) THEN
 		SET message_error = 'EMAIL IS NOT VALID' ;
     END IF;
     IF message_error = '' THEN
 		UPDATE Customer
 		SET
-			`userName` = userName,
-			`sex` = sex,
-			`email` = email,
-			`password` = password,
-			`phoneNumber` = phoneNumber,
-			`name` = name,
-			`birthday` = birthday
-		WHERE `userID` = updatedUserID;
+			`sex` = $sex,
+			`email` = $email,
+			`password` = $password,
+			`phoneNumber` = $phoneNumber,
+			`name` = $name,
+			`birthday` = $birthday
+		WHERE `userID` = $updatedUserID;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = message_error;
 	END IF;
@@ -109,20 +120,24 @@ END;|
 delimiter ;
 
 -- ----------------Dữ liệu chạy thử---------------
+CALL insertCustomer('daylataikhoanthu','datluong@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
+,'Nguyễn Thử', '1988-12-03','F'); -- Trùng với email admin
+CALL insertCustomer('kienha1','datdtttt@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
+,'Nguyễn Thử', '1988-12-03','F'); -- Trùng với userName employee
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
-,'Nguyễn Thử', '2022-12-03','F');
+,'Nguyễn Thử', '2022-12-03','F'); -- Độ tuổi invalid
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','12345'
-,'Nguyễn Thử', '1989-12-03','F');
+,'Nguyễn Thử', '1989-12-03','F'); -- SĐT không đủ dộ dài.
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','099A999999'
-,'Nguyễn Thử', '1989-12-03','F');
+,'Nguyễn Thử', '1989-12-03','F'); -- Số điện thoại không hợp lệ
 CALL insertCustomer('daylataikhoanthu','nguyenthugmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
-,'Nguyễn Thử', '1989-12-03','F');
+,'Nguyễn Thử', '1989-12-03','F'); -- Email không hợp lệ
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
-,'Nguyễn Thử', '1989-12-03','F');
+,'Nguyễn Thử', '1989-12-03','F');  -- Hợp lệ
 -- ----------------------------------------
 
-CALL updateCustomer(9,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','1111111111'
-,'Nguyễn Thi', '1989-12-23','M');
+CALL updateCustomer(1,'datluong@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','1111111111'
+,'Nguyễn Thi A', '1989-12-23','M');
 CALL updateCustomer(1,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','1111111111'
 ,'Nguyễn Thi', '2021-12-23','M');
 CALL updateCustomer(1,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','111111'
@@ -136,4 +151,4 @@ CALL updateCustomer(1,'nguyenthu123@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zO
 
 -- -----------------------------
 CALL deleteCustomer(0);
-CALL deleteCustomer(1);
+CALL deleteCustomer(11);

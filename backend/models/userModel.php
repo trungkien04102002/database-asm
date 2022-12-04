@@ -47,8 +47,8 @@
                 return -1;
             }
             
-            $stmt = $conn->prepare('SELECT * FROM ? WHERE userName = ?');
-            $stmt->bind_param('ss', $role, $userName); // 's' specifies the variable type => 'string'
+            $stmt = $conn->prepare("SELECT * FROM $role WHERE userName = ?");
+            $stmt->bind_param('s',  $userName); // 's' specifies the variable type => 'string'
             $stmt->execute(); 
             $result = $stmt->get_result(); 
             $row = $result->fetch_assoc();
@@ -67,9 +67,9 @@
                 return -1;
             }
             
-            $stmt = $conn->prepare('SELECT password FROM ? WHERE userName = ?');
+            $stmt = $conn->prepare("SELECT password FROM $role WHERE userName = ?");
            
-            $stmt->bind_param('ss',$role, $userName); // 's' specifies the variable type => 'string'
+            $stmt->bind_param('s', $userName); // 's' specifies the variable type => 'string'
             $stmt->execute(); 
             $result = $stmt->get_result(); 
             $row = $result->fetch_assoc();
