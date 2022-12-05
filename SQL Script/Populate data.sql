@@ -269,11 +269,13 @@ VALUES
 (4,0,true,138000,138000,'ready','Q10',50,'Hai Ba Trung',4,2), -- RES 2
 (5,0,true,156000,156000,'ready','Q10',100,'Dien Bien Phu',6,5), -- RES 3
 (6,10000,false,258000,268000,'pending','Q10',30,'Ly Thuong Kiet',2,6), -- RES 1
-(7,20000,false,115000,135000,'pending','Q10',50,'Hai Ba Trung',4,7),  -- RES 2
-(8,15000,false,87000,102000,'ready','Q10',100,'Dien Bien Phu',8,2), -- RES 4
-(9,20000,false,100000,120000,'ready','Q10',100,'Ha Trung Kien',3,9), -- Combo RES 1
-(10,15000,true,115000,130000,'pending','Q10',100,'Vo Van Ngan',4,10),-- Combo RES 2
-(11,25000,true,125000,150000,'pending','Q10',90,'Hoang Dieu',7,1); -- Combo RES 4
+(7,20000,false,135000,135000,'pending','Q10',50,'Hai Ba Trung',4,7),  -- RES 2
+(8,15000,false,102000,102000,'ready','Q10',100,'Dien Bien Phu',8,2), -- RES 4
+(9,20000,false,102000,102000,'ready','Q10',100,'Ha Trung Kien',3,9), -- Combo RES 1
+(10,15000,true,130000,130000,'pending','Q10',100,'Vo Van Ngan',4,10),-- Combo RES 2
+(11,25000,true,150000,150000,'pending','Q10',90,'Hoang Dieu',7,1),
+
+(12,10000,true,45000,45000,'ready','Q9',90,'Ly Thai To',3,5); 
 
 
 -- -----------------------Voucher—--------------------------
@@ -335,6 +337,7 @@ INSERT INTO `orderingapp`.`item`
 (`itemID`,`dishID`,`quantity`,`price`,`orderID`)
 VALUES
 (1,1,1,45000,1), -- RES 1
+(1,1,1,45000,12), 
 (2,2,1,48000,1),
 (3,3,2,65000,2), -- RES 3
 (4,4,3,50000,3), -- RES 4
