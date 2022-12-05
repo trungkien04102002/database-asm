@@ -69,12 +69,12 @@ END|
 DELIMITER ;
 
 INSERT INTO `orderingapp`.`orderlog`
-(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
-(3,7,'2022-12-01',1,1,1);
+(`orderID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(3,'2022-12-01',1,1,1);
 
 INSERT INTO `orderingapp`.`orderlog`
-(`orderID`,`logID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
-(11,8,'2022-12-01',1,2,3);
+(`orderID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(11,'2022-12-01',1,2,3);
 
 UPDATE Dish SET dishDescription = "Ngon ngon ngon ghê" WHERE dishID = 1;
 UPDATE Dish SET isAvailable = false  WHERE dishID = 1;

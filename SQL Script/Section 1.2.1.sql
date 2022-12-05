@@ -6,7 +6,7 @@ DROP FUNCTION IF EXISTS check_age_customer|
 CREATE FUNCTION check_age_customer(bỉrthday DATE) RETURNS BOOL DETERMINISTIC
 RETURN bỉrthday IS NULL OR (15 <= floor(datediff (now(), birthday)/365) AND floor(datediff (now(), birthday)/365) <= 150)|
 
--- Hàm hỗ trợ cho việc kiểm tra số điện thoại của khách hàng
+-- Hàm hỗ trợ cho việ c kiểm tra số điện thoại của khách hàng
 DROP FUNCTION IF EXISTS check_phone_customer|
 CREATE FUNCTION check_phone_customer(phoneNumber varchar(10))
 RETURNS VARCHAR(200) DETERMINISTIC
@@ -82,7 +82,7 @@ BEGIN
 		UNION SELECT userID FROM Owner WHERE email = $email
 		UNION SELECT userID FROM Employee WHERE email = $email
     )) THEN 
-		SET message_error = 'USER HAS ALREADY EXISTED';
+		SET message_error = 'THIS EMAIL HAS BEEN USED BY OTHER USER';
 	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';
 	ELSEIF ( check_phone_customer($phoneNumber) != 'TRUE') THEN

@@ -29,12 +29,13 @@ DROP PROCEDURE IF EXISTS Count_Restaurant_Customer_Order_Success|
 CREATE PROCEDURE Count_Restaurant_Customer_Order_Success($minPayment INT)
 BEGIN
 
-    SELECT customerID, COUNT(*) AS countRestaurant FROM 
-		(SELECT r.resName AS resautant, c.userID AS customerID
+    SELECT customerID, COUNT(customerID) AS countRestaurant FROM 
+		(SELECT r.resName AS restautant, c.userID AS customerID
 		FROM Customer c, Orders o, Branch b, Restaurant r
 		WHERE o.state = 'ready' AND o.branchID = b.branchID AND o.cusID = c.userID AND b.resID = r.resID
 		GROUP BY r.resName, c.userID
 		HAVING SUM(o.totalCost) > $minPayment) as temp
+	GROUP BY customerID
     ORDER BY countRestaurant desc;
     
 END;|
@@ -50,6 +51,7 @@ CALL List_Dish_Of_Restaurant(2);
 CALL List_Dish_Of_Restaurant(3);
 CALL List_Dish_Of_Restaurant(4);
 
+CALL Count_Restaurant_Customer_Order_Success(0);
 CALL Count_Restaurant_Customer_Order_Success(10000);
 CALL Count_Restaurant_Customer_Order_Success(100000);
 CALL Count_Restaurant_Customer_Order_Success(110000);
