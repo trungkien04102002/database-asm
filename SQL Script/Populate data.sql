@@ -70,10 +70,10 @@ VALUES
 (2,'kienha2','F','kienha2@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111112','Kiên 2','1995-02-02',2),
 (3,'kienha3','F','kienha3@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111113','Kiên 3','1995-02-03',3),
 (4,'kienha4','F','kienha4@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111114','Kiên 4','1995-02-04',4),
-(5,'kienha5','F','kienha5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111115','Kiên 5','1995-02-05',1),
-(6,'kienha6','F','kienha6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111116','Kiên 6','1995-02-06',2),
-(7,'kienha7','F','kienha7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111117','Kiên 7','1995-02-07',3),
-(8,'kienha8','F','kienha8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111118','Kiên 8','1995-02-08',4),
+(5,'kienha5','F','kienha5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111115','Kiên 5','1995-02-05',5),
+(6,'kienha6','F','kienha6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111116','Kiên 6','1995-02-06',6),
+(7,'kienha7','F','kienha7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111117','Kiên 7','1995-02-07',7),
+(8,'kienha8','F','kienha8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111118','Kiên 8','1995-02-08',8),
 (9,'kienha9','F','kienha9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111119','Kiên 9','1995-02-06',1),
 (10,'kienha10','F','kienha10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0101111100','Kiên 10','1995-02-10',2);
 
@@ -263,19 +263,18 @@ VALUES
 INSERT INTO `orderingapp`.`orders`
 (`orderID`,`shippingCost`,`isDirectPay`,`afterVoucherCost`,`totalCost`,`state`,`district`,`houseNumber`,`street`,`branchID`,`cusID`)
 VALUES
-(1,0,true,93000,93000,'ready','Q10',10,'Ly Thuong Kiet',1,1),   -- RES 1
-(2,0,true,130000,130000,'ready','Q10',20,'Dinh Tien Hoang',5,2),  -- RES 3
+(1,0,true,93000,93000,'ready','Q10',10,'Ly Thuong Kiet',1,1),   -- RES 1 Done 
+(2,0,true,130000,130000,'ready','Q10',20,'Dinh Tien Hoang',5,2),  -- RES 3 Done
 (3,0,true,150000,150000,'pending','Q10',30,'Ly Thuong Kiet',7,3), -- RES 4
-(4,0,true,138000,138000,'ready','Q10',50,'Hai Ba Trung',4,2), -- RES 2
-(5,0,true,156000,156000,'ready','Q10',100,'Dien Bien Phu',6,5), -- RES 3
-(6,10000,false,258000,268000,'pending','Q10',30,'Ly Thuong Kiet',2,6), -- RES 1
+(4,0,true,138000,138000,'ready','Q10',50,'Hai Ba Trung',4,2), -- RES 2 Done
+(5,0,true,156000,156000,'ready','Q10',100,'Dien Bien Phu',6,5), -- RES 3 Done
+(6,10000,false,258000,258000,'pending','Q10',30,'Ly Thuong Kiet',2,6), -- RES 1
 (7,20000,false,135000,135000,'pending','Q10',50,'Hai Ba Trung',4,7),  -- RES 2
 (8,15000,false,102000,102000,'ready','Q10',100,'Dien Bien Phu',8,2), -- RES 4
 (9,20000,false,102000,102000,'ready','Q10',100,'Ha Trung Kien',3,9), -- Combo RES 1
 (10,15000,true,130000,130000,'pending','Q10',100,'Vo Van Ngan',4,10),-- Combo RES 2
-(11,25000,true,150000,150000,'pending','Q10',90,'Hoang Dieu',7,1),
-
-(12,10000,true,45000,45000,'ready','Q9',90,'Ly Thai To',3,5); 
+(11,25000,true,150000,150000,'pending','Q10',90,'Hoang Dieu',7,1), 
+(12,10000,true,45000,45000,'ready','Q9',90,'Ly Thai To',3,5);  -- RES 1
 
 
 -- -----------------------Voucher—--------------------------
@@ -310,13 +309,13 @@ VALUES
 INSERT INTO `orderingapp`.`accumulatedScore`
 (`resID`,`score`,`userID`)
 VALUES
-(1,50000,1),
-(2,20000,2),
-(4,40000,3),
-(3,15000,4),
-(4,25000,5),
-(2,5000,6),
-(1,35000,7);
+(1,93,1),
+(3,130,2),
+(2,138,2),
+(3,156,6),
+(4,102,2),
+(1,102,9),
+(1,45,5);
 
 -- ~~~~~~~~~~~~Order log~~~~~~~~~~~~~~~~~~
 
@@ -324,12 +323,13 @@ VALUES
 INSERT INTO `orderingapp`.`orderlog`
 (`orderID`,`logID`,`score`,`shippingTime`,`coin`,`shippingCode`,`agentID`,`employeeID`)
 VALUES
-(1,1,93,'2022-12-01',93,1,1,1),
-(2,2,130,'2022-12-01',130,2,2,2),
-(4,3,138,'2022-12-01',138,3,3,3),
-(5,4,156,'2022-12-01',156,4,4,4),
-(8,5,102,'2022-12-01',102,5,5,5),
-(9,6,120,'2022-12-02',120,6,2,5);
+(1,1,93,'2022-12-01',93,1,1,1),  -- RES 1 
+(2,2,130,'2022-12-01',130,2,2,5), -- RES 3
+(4,3,138,'2022-12-01',138,3,3,4), -- RES 2
+(5,4,156,'2022-12-01',156,4,4,6), -- RES 3
+(8,5,102,'2022-12-01',102,5,5,8), -- RES 4
+(9,6,120,'2022-12-02',120,6,2,5,3), -- Combo RES 1
+(12,7,45,'2022-12-01',45,7,5,3); -- RES 1
 
 
 -- ------------------------Item —--------------------------
@@ -337,7 +337,6 @@ INSERT INTO `orderingapp`.`item`
 (`itemID`,`dishID`,`quantity`,`price`,`orderID`)
 VALUES
 (1,1,1,45000,1), -- RES 1
-(1,1,1,45000,12), 
 (2,2,1,48000,1),
 (3,3,2,65000,2), -- RES 3
 (4,4,3,50000,3), -- RES 4
@@ -350,8 +349,8 @@ VALUES
 (11,9,2,39000,6),
 (12,14,1,70000,7), -- RES 2
 (13,10,1,45000,7),
-(14,8,3,29000,8); -- RES 4
-
+(14,8,3,29000,8), -- RES 4
+(15,1,1,45000,12);
 
 
 
