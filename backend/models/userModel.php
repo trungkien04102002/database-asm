@@ -27,17 +27,14 @@
             $result = $stmt->get_result(); 
 
 
-            $stmt = $conn->prepare('SELECT * FROM users WHERE email = ?');
+            $stmt = $conn->prepare('SELECT * FROM customer WHERE email = ?');
             $stmt->bind_param('s', $email); 
             $stmt->execute(); 
             $result = $stmt->get_result();  
              
-            if ($row = $result->fetch_assoc()) {
-                $newUser = array("userID" => $row["userID"],"email" => $row["email"],"sex" => $row["sex"],
-                    "isAdmin" => $row["isAdmin"],"accumulatedScore" => $row["accumulatedScore"], 
-                    "phoneNumber" => $row["phoneNumber"]);
-            }
-            return $newUser;          
+            $row = $result->fetch_assoc();
+            unset($row["password"]);
+            return $row;          
         }
 
         public static function getUserProfile($userName,$role){
@@ -96,18 +93,68 @@
             unset($row["password"]);
             return $row;          
         }
-        public static function getAllUsers(){
+
+        public static function getAllCus($page, $keySearch,$orderField){
+            $record_per_page = 10;
+            $start_from = ($page-1)*$record_per_page;
+            $keySearch = "%$keySearch%";
+
             $conn = DbConnection::getInstance();
-            $stmt = $conn->prepare('SELECT * FROM users WHERE isAdmin = false');
+            $sqlCmd = 'SELECT *, "Customer" as role, calculate_sum_of_money_paid(userID) as moneySpent FROM Customer WHERE name LIKE ?';
+            if ($orderField == 1) {
+                $sqlCmd .= " ORDER BY userID LIMIT ?, ?";
+            }
+            else if ($orderField == 2) {
+                $sqlCmd .= " ORDER BY name LIMIT ?, ?";
+            }
+            else if ($orderField == 3) {
+                $sqlCmd .= " ORDER BY email LIMIT ?, ?";
+            }
+            else if ($orderField == 4) {
+                $sqlCmd .= ' ORDER BY moneySpent DESC LIMIT ?, ?';
+            }
+            $stmt = $conn->prepare($sqlCmd);
+            $stmt->bind_param('sii', $keySearch, $start_from, $record_per_page);
             $stmt->execute(); 
             $result = $stmt->get_result(); 
-            $users = array();
+            $customers = array();
 
             while ($row = $result->fetch_assoc()) {
                 unset($row["password"]);
-                array_push($users, $row);
+                array_push($customers, $row);
             }       
-            return $users;
+            return $customers;
+        }
+        public static function getCustomerByID($cusID){
+            $conn = DbConnection::getInstance();
+            $stmt = $conn->prepare('SELECT *, "Customer" as role, calculate_sum_of_money_paid(userID) as moneySpent FROM Customer WHERE userID = ?');
+            $stmt->bind_param('i', $cusID);
+            $stmt->execute(); 
+            $result = $stmt->get_result(); 
+            $row = $result->fetch_assoc();
+      
+            return $row;
+        }
+        public static function updateCustomer($cusID, $email, $name, $sex, $birthday, $password, $phoneNumber ){
+
+
+            $conn = DbConnection::getInstance();
+            $stmt = $conn->prepare('CALL updateCustomer(?,?,?,?,?,?,?)');
+            $stmt->bind_param('issssss', $cusID, $email, $password, $phoneNumber, $name, $birthday, $sex);
+            $stmt->execute(); 
+              
+            return UserModel::getCustomerByID($cusID);
+        }
+
+        public static function deleteCustomer($cusID){
+
+
+            $conn = DbConnection::getInstance();
+            $stmt = $conn->prepare('CALL deleteCustomer(?)');
+            $stmt->bind_param('i',$cusID);
+            $stmt->execute(); 
+              
+            return Array("msg"=>"success");
         }
     }
 ?>

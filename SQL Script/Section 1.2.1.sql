@@ -3,7 +3,7 @@ delimiter |
 
 -- Hàm hỗ trợ cho việc kiểm tra tuổi của khách hàng
 DROP FUNCTION IF EXISTS check_age_customer|
-CREATE FUNCTION check_age_customer(bỉrthday DATE) RETURNS BOOL DETERMINISTIC
+CREATE FUNCTION check_age_customer(birthday DATE) RETURNS BOOL DETERMINISTIC
 RETURN bỉrthday IS NULL OR (15 <= floor(datediff (now(), birthday)/365) AND floor(datediff (now(), birthday)/365) <= 150)|
 
 -- Hàm hỗ trợ cho việ c kiểm tra số điện thoại của khách hàng
@@ -77,11 +77,12 @@ BEGIN
     DECLARE message_error VARCHAR(1000) DEFAULT '';
     IF (NOT EXISTS (SELECT * FROM Customer WHERE userID = $updatedUserID)) THEN
 		SET message_error = 'THIS USERID DOES NOT EXIST!';
-	ELSEIF (EXISTS (SELECT userID FROM Customer WHERE email = $email
-		UNION SELECT userID FROM Admin WHERE email = $email
-		UNION SELECT userID FROM Owner WHERE email = $email
-		UNION SELECT userID FROM Employee WHERE email = $email
-    )) THEN 
+	ELSEIF ($email != (SELECT email FROM Customer WHERE userID = $updatedUserID ) 
+		AND (EXISTS (SELECT userID FROM Customer WHERE email = $email
+			UNION SELECT userID FROM Admin WHERE email = $email
+			UNION SELECT userID FROM Owner WHERE email = $email
+			UNION SELECT userID FROM Employee WHERE email = $email
+    ))) THEN 
 		SET message_error = 'THIS EMAIL HAS BEEN USED BY OTHER USER';
 	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';

@@ -22,17 +22,20 @@ INSERT INTO `orderingapp`.`owner`
 INSERT INTO `orderingapp`.`customer`
 (`userID`,`userName`,`sex`,`email`,`password`,`phoneNumber`,`name`,`birthday`,`accumulatedCoin`)
 VALUES
-(1,'hoang1','M','hoangnguyen1@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111111','Hoàng 1','1990-02-01',5),
-(2,'hoang2','M','hoangnguyen2@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111112','Hoàng 2','1990-02-02',0),
-(3,'hoang3','M','hoangnguyen3@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111113','Hoàng 3','1990-02-03',3),
-(4,'hoang4','M','hoangnguyen4@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111114','Hoàng 4','1990-02-04',4),
-(5,'hoang5','M','hoangnguyen5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111115','Hoàng 5','1990-02-05',10),
-(6,'hoang6','M','hoangnguyen6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111116','Hoàng 6','1990-02-06',3),
-(7,'hoang7','M','hoangnguyen7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111117','Hoàng 7','1990-02-07',21),
-(8,'hoang8','M','hoangnguyen8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111118','Hoàng 8','1990-02-08',19),
-(9,'hoang9','M','hoangnguyen9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111119','Hoàng 9','1990-02-06',31),
-(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','Hoàng 10','1990-02-10',4),
-(11,'hoang11','M','hoangnguyen11@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','Hoàng 11','1990-02-10',0);
+(1,'hoangD1','M','hoangnguyenR1@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111111','HoàngT 1','1990-02-01',5),
+(2,'hoangT2','M','hoangnguyenV2@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111112','HoàngY 2','1990-03-02',0),
+(3,'hoangH3','M','hoangnguyenM3@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111113','HoàngF 3','1990-04-03',3),
+(4,'hoangZ4','M','hoangnguyenN4@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111114','HoàngD 4','1990-05-04',4),
+(5,'hoangA5','M','hoangnguyenA5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111115','HoàngJ 5','1990-06-05',10),
+(6,'hoangC6','M','hoangnguyenB6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111116','HoàngE 6','1990-07-06',3),
+(7,'hoangB7','M','hoangnguyenF7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111117','HoàngK 7','1990-08-07',21),
+(8,'hoangY8','M','hoangnguyenC8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111118','HoàngL 8','1990-09-08',19),
+(9,'hoangO9','M','hoangnguyenU9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111119','HoàngN 9','1990-10-06',31),
+(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngA 10','1990-11-10',4),
+(11,'hoang11','M','hoangnguyen11@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngB 11','1991-02-10',0),
+(12,'hoang12','M','hoangnguyen12@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngP 12','1992-02-10',0),
+(13,'hoang13','M','hoangnguyen13@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngX 13','1993-02-10',0),
+(14,'hoang14','M','hoangnguyen14@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngZ 14','1994-02-10',0);
 
 
 

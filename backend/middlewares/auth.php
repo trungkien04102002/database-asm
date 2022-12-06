@@ -11,9 +11,7 @@
         if (!$user){
             throw new Exception("Cannot decode token!", 400);
         }
-        if (!UserModel::checkUserExistence($user->email)){
-            throw new Exception("Cannot find user!", 404);
-        }
+
         return (array) $user;
     }
 
@@ -23,10 +21,8 @@
         if (!$user){
             throw new Exception("Cannot decode token!", 400);
         }
-        if (!UserModel::checkUserExistence($user->email)){
-            throw new Exception("Cannot find user!", 404);
-        }
-        if (!$user->isAdmin){
+
+        if ($user->role != "Admin"){
             throw new Exception("Only admin can access this resource!", 400);
         }
         return (array) $user;
