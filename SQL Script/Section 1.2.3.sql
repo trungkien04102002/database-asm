@@ -22,7 +22,7 @@ BEGIN
     END IF;
 END;|
 
--- Thủ tục lấy danh sách customerID và số nhà hàng mà khách hàng đó đã đặt mua với tổng số tiền lớn hơn một khoảng nào đó.
+-- Thủ tục lấy danh sách customer và số nhà hàng mà khách hàng đó đã đặt mua với tổng số tiền lớn hơn một khoảng nào đó.
 -- Ví dụ: Lấy danh sách các khách hàng và số nhà hàng má khách hàng đã đặt mua với tổng giá trị sản phẩm đặt hơn 100k.
 
 DROP PROCEDURE IF EXISTS Count_Restaurant_Customer_Order_Success|
