@@ -14,7 +14,7 @@ BEGIN
     END IF;
     
     IF message_error = '' THEN
-        SELECT dishName AS Name FROM Dish
+        SELECT * FROM Dish
 	WHERE resID = $ResID
 	ORDER BY dishName ASC;
     ELSE
@@ -29,13 +29,13 @@ DROP PROCEDURE IF EXISTS Count_Restaurant_Customer_Order_Success|
 CREATE PROCEDURE Count_Restaurant_Customer_Order_Success($minPayment INT)
 BEGIN
 
-    SELECT customerID, COUNT(customerID) AS countRestaurant FROM 
-		(SELECT r.resName AS restautant, c.userID AS customerID
+    SELECT customerID, customerName, COUNT(customerID) AS countRestaurant FROM 
+		(SELECT r.resName AS restautant, c.userID AS customerID, c.name AS customerName
 		FROM Customer c, Orders o, Branch b, Restaurant r
 		WHERE o.state = 'ready' AND o.branchID = b.branchID AND o.cusID = c.userID AND b.resID = r.resID
-		GROUP BY r.resName, c.userID
+		GROUP BY r.resName, c.userID, c.name
 		HAVING SUM(o.totalCost) > $minPayment) as temp
-	GROUP BY customerID
+	GROUP BY customerID, customerName
     ORDER BY countRestaurant desc;
     
 END;|

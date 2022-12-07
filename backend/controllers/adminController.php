@@ -38,6 +38,13 @@
         }
         switch ($method){
             case "GET":
+                if ($path[3] == "count"){
+                    if(!isset($_GET["minPayment"])){
+                        throw new Exception("Lack information",400);
+                    }
+                    echo json_encode(OtherModel::getCountRes($_GET["minPayment"]));
+                    break;
+                }
                 if(isset($_GET["page"])){
                     $page = $_GET["page"];
                 } else {
@@ -60,19 +67,40 @@
                     case "restaurants":
                         echo json_encode(OtherModel::getAllRes($page,$keySearch,$orderField));
                         break;
-                    case "orders":
+                    case "dishes":
+                        if (!isset($_GET["resID"])){
+                            throw new Exception("Lack information",400);
+                        }
+                        echo json_encode(OtherModel::getAllDishesFromARes($_GET["resID"],$keySearch,$orderField));
                         break;
                 }
                 break;
             case "POST": 
+                switch ($path[3]){
+                    case "dish":
+                        if (!isset($_POST["dishName"]) || !isset($_POST["isAvailable"]) || !isset($_POST["dishDescription"])
+                            || !isset($_POST["unitPrice"]) || !isset($_POST["resID"]) || !isset($_POST["size"]) ){
+                            throw new Exception("Lack information",400);
+                        }
+                        $dishName = $_POST["dishName"];
+                        $dishDescription = $_POST["dishDescription"];
+                        $isAvailable = $_POST["isAvailable"];
+                        $size = $_POST["size"];
+                        $unitPrice = $_POST["unitPrice"];
+                        $resID = $_POST["resID"];
+
+                        echo json_encode(OtherModel::insertDish($dishName,$resID,$size,$isAvailable,$dishDescription,$unitPrice));
+                        break;                       
+                }
                 break;
             case "PATCH":
                 parse_str(file_get_contents('php://input'),$data);
-                if (!isset($data["userID"])){
-                    throw new Exception("Lack information",400);
-                }
+
                 switch ($path[3]){
                     case "customer":
+                        if (!isset($data["userID"])){
+                            throw new Exception("Lack information",400);
+                        }
                         $cus = UserModel::getCustomerByID($data["userID"]);
                         $sex = (isset($data["sex"]))? $data["sex"]:$cus["sex"];
                         $birthday = (isset($data["birthday"]))? $data["birthday"]:$cus["birthday"];
@@ -82,7 +110,19 @@
                         $password = $cus["password"];
                         echo json_encode(UserModel::updateCustomer($data["userID"], $email, $name,$sex,$birthday,$password,$phoneNumber));
                         break;
-                    case "orderstate":
+                    case "dish":
+                        if (!isset($data["dishID"])){
+                            throw new Exception("Lack information",400);
+                        }
+                        $dish =  OtherModel::getDishByID($data["dishID"]);
+
+                        $dishName = (isset($data["dishName"]))? $data["dishName"]:$dish["dishName"];
+                        $dishDescription = (isset($data["dishDescription"]))? $data["dishDescription"]:$dish["dishDescription"];
+                        $isAvailable = (isset($data["isAvailable"]))? $data["isAvailable"]:$dish["isAvailable"];
+                        $size = (isset($data["size"]))? $data["size"]:$dish["size"];
+                        $unitPrice = (isset($data["unitPrice"]))? $data["unitPrice"]:$dish["unitPrice"];
+
+                        echo json_encode(OtherModel::updateDish($data["dishID"],$dishName,$size,$isAvailable,$dishDescription,$unitPrice));
                         break;
                 }
                 break;
@@ -94,7 +134,12 @@
                         }
                         echo json_encode(UserModel::deleteCustomer($_GET["userID"]));
                         break;
-
+                    case "dish":
+                        if (!isset($_GET["dishID"])){
+                            throw new Exception("Lack information",400);
+                        }
+                        echo json_encode(OtherModel::deleteDish($_GET["dishID"]));
+                        break;                       
                 }
                 break;    
         }
