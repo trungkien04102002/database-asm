@@ -4,7 +4,7 @@ delimiter |
 -- Hàm hỗ trợ cho việc kiểm tra tuổi của khách hàng
 DROP FUNCTION IF EXISTS check_age_customer|
 CREATE FUNCTION check_age_customer(birthday DATE) RETURNS BOOL DETERMINISTIC
-RETURN bỉrthday IS NULL OR (15 <= floor(datediff (now(), birthday)/365) AND floor(datediff (now(), birthday)/365) <= 150)|
+RETURN birthday IS NULL OR (15 <= floor(datediff (now(), birthday)/365) AND floor(datediff (now(), birthday)/365) <= 150)|
 
 -- Hàm hỗ trợ cho việ c kiểm tra số điện thoại của khách hàng
 DROP FUNCTION IF EXISTS check_phone_customer|
