@@ -1,9 +1,9 @@
 use orderingApp;
 DELIMITER |
 
--- --------- TRIGGER CẬP NHẬT STATE CỦA ORDER TƯƠNG ỨNG VÀ SCORE,POINT CỦA KHÁCH HÀNG SAU KHI THÊM INSERT ORDERLOGS --------------
-DROP TRIGGER IF EXISTS `update_state_score_point_afterAddOrderLog` |
-CREATE TRIGGER `update_state_score_point_afterAddOrderLog` BEFORE INSERT ON `orderlog`
+-- --------- TRIGGER CẬP NHẬT STATE CỦA ORDER TƯƠNG ỨNG VÀ SCORE,POINT CỦA KHÁCH HÀNG  TRƯỚC KHI THÊM INSERT ORDERLOGS --------------
+DROP TRIGGER IF EXISTS `update_state_score_point_beforeAddOrderLog` |
+CREATE TRIGGER `update_state_score_point_beforeAddOrderLog` BEFORE INSERT ON `orderlog`
 FOR EACH ROW
 BEGIN
     DECLARE $cus_id_update INT;
