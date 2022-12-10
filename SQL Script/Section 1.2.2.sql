@@ -47,6 +47,7 @@ main: BEGIN
 	DECLARE done BOOLEAN DEFAULT FALSE;
 	DECLARE $belongToCates CURSOR FOR SELECT cateID FROM BelongTo WHERE dishID = NEW.dishID;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+	
 
 	IF (NEW.isAvailable = true AND OLD.isAvailable = false) 
     THEN 

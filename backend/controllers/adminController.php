@@ -29,10 +29,13 @@
 
     $method = $_SERVER["REQUEST_METHOD"];
     try{
-        if (!isset(apache_request_headers()["Authorization"]) || ! preg_match('/Bearer\s(\S+)/', apache_request_headers()["Authorization"], $matches)) {
-            throw new Exception("Cannot find token!",400);
+
+        if ($method != "GET") {
+            if (!isset(apache_request_headers()["Authorization"]) || ! preg_match('/Bearer\s(\S+)/', apache_request_headers()["Authorization"], $matches)) {
+                throw new Exception("Cannot find token!",400);
+            }
+            $user = authenticateAdmin($matches[1]);
         }
-        $user = authenticateAdmin($matches[1]);
         if (!isset($path[3])){
             throw new Exception("Cannot find route!",400);
         }
@@ -44,11 +47,6 @@
                     }
                     echo json_encode(OtherModel::getCountRes($_GET["minPayment"]));
                     break;
-                }
-                if(isset($_GET["page"])){
-                    $page = $_GET["page"];
-                } else {
-                    $page = 1;
                 }
                 if(isset($_GET["keySearch"])){
                     $keySearch = $_GET["keySearch"];
@@ -62,10 +60,10 @@
                 }
                 switch ($path[3]){
                     case "customers":
-                        echo json_encode(UserModel::getAllCus($page,$keySearch,$orderField));
+                        echo json_encode(UserModel::getAllCus($keySearch,$orderField));
                         break;
                     case "restaurants":
-                        echo json_encode(OtherModel::getAllRes($page,$keySearch,$orderField));
+                        echo json_encode(OtherModel::getAllRes($keySearch,$orderField));
                         break;
                     case "dishes":
                         if (!isset($_GET["resID"])){

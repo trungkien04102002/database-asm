@@ -3,22 +3,20 @@
 
     class OtherModel{
 
-        public static function getAllRes($page, $keySearch,$orderField){
-            $record_per_page = 10;
-            $start_from = ($page-1)*$record_per_page;
+        public static function getAllRes($keySearch,$orderField){
             $keySearch = "%$keySearch%";
 
             $conn = DbConnection::getInstance();
             $sqlCmd = 'SELECT * FROM Restaurant WHERE resName LIKE ? ';
             if ($orderField == 1) {
-                $sqlCmd .= "ORDER BY resID LIMIT ?, ?";
+                $sqlCmd .= "ORDER BY resID ";
             }
             else if ($orderField == 2) {
-                $sqlCmd .= "ORDER BY resName LIMIT ?, ?";
+                $sqlCmd .= "ORDER BY resName";
             }
 
             $stmt = $conn->prepare($sqlCmd);
-            $stmt->bind_param('sii', $keySearch, $start_from,$record_per_page);
+            $stmt->bind_param('s', $keySearch);
             $stmt->execute(); 
             $result = $stmt->get_result(); 
             $res = array();

@@ -94,27 +94,26 @@
             return $row;          
         }
 
-        public static function getAllCus($page, $keySearch,$orderField){
-            $record_per_page = 10;
-            $start_from = ($page-1)*$record_per_page;
+        public static function getAllCus($keySearch,$orderField){
+
             $keySearch = "%$keySearch%";
 
             $conn = DbConnection::getInstance();
             $sqlCmd = 'SELECT *, "Customer" as role, calculate_sum_of_money_paid(userID) as moneySpent FROM Customer WHERE name LIKE ?';
             if ($orderField == 1) {
-                $sqlCmd .= " ORDER BY userID LIMIT ?, ?";
+                $sqlCmd .= " ORDER BY userID";
             }
             else if ($orderField == 2) {
-                $sqlCmd .= " ORDER BY name LIMIT ?, ?";
+                $sqlCmd .= " ORDER BY name";
             }
             else if ($orderField == 3) {
-                $sqlCmd .= " ORDER BY email LIMIT ?, ?";
+                $sqlCmd .= " ORDER BY email ";
             }
             else if ($orderField == 4) {
-                $sqlCmd .= ' ORDER BY moneySpent DESC LIMIT ?, ?';
+                $sqlCmd .= ' ORDER BY moneySpent DESC';
             }
             $stmt = $conn->prepare($sqlCmd);
-            $stmt->bind_param('sii', $keySearch, $start_from, $record_per_page);
+            $stmt->bind_param('s', $keySearch);
             $stmt->execute(); 
             $result = $stmt->get_result(); 
             $customers = array();
