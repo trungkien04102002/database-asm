@@ -32,7 +32,7 @@ BEGIN
 	RETURN $sum;
 END |
 
--- -----------HÀM XẾP LOẠI CỦA MÓN ĂN DỰA VÀO RATING -------
+-- ----------- -------
 DROP FUNCTION IF EXISTS get_rank_dish|
 CREATE FUNCTION get_rank_dish($dishID INT)
 RETURNS VARCHAR(15) READS SQL DATA
