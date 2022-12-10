@@ -39,10 +39,10 @@
             else if ($orderField == 2) {
                 $sqlCmd .= "ORDER BY dishName";
             }
-            else if ($orderField == 2) {
+            else if ($orderField == 3) {
                 $sqlCmd .= "ORDER BY unitPrice";
             }
-            else if ($orderField == 3) {
+            else if ($orderField == 4) {
                 $sqlCmd .= "ORDER BY rank_dish";
             }
             $stmt = $conn->prepare($sqlCmd);
