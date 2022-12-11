@@ -10,6 +10,14 @@ BEGIN
     DECLARE $branch_id_update INT;
     DECLARE $res_id_update INT;
     DECLARE $bonus_coin INT;
+    IF (NOT EXISTS (SELECT * FROM Orders WHERE  orderID = NEW.orderID)) THEN
+		  SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'THIS ORDERID DOES NOT EXIST!';
+    END IF;
+
+    IF (EXISTS (SELECT * FROM orderlog WHERE orderID = NEW.orderID)) THEN
+		  SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'THIS ORDER LOG FOR THIS ORDER HAS BEEN CREATED';
+    END IF;
+    
     -- Update state
     UPDATE Orders
     SET state ='ready'
@@ -68,6 +76,14 @@ main: BEGIN
 END|
 
 DELIMITER ;
+
+INSERT INTO `orderingapp`.`orderlog`
+(`orderID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(100,'2022-12-01',1,1,1);  -- Fail because orderID not exist
+
+INSERT INTO `orderingapp`.`orderlog`
+(`orderID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES
+(1,'2022-12-01',1,1,1);  -- Fail because this order has been created
 
 INSERT INTO `orderingapp`.`orderlog`
 (`orderID`,`shippingTime`,`shippingCode`,`agentID`,`employeeID`) VALUES

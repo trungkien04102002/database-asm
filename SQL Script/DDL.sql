@@ -217,7 +217,7 @@ CREATE TABLE Voucher(
 	dateExchange DATE NOT NULL,
 	programID INT NOT NULL ,
 	cusID INT NOT NULL ,
-	orderID INT NOT NULL ,
+	orderID INT DEFAULT NULL,
 	FOREIGN KEY(cusID) REFERENCES Customer(userID),
 	FOREIGN KEY(programID) REFERENCES ExchangeProgram(programID),
 	FOREIGN KEY(orderID) REFERENCES Orders(orderID)

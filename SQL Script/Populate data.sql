@@ -22,16 +22,16 @@ INSERT INTO `orderingapp`.`owner`
 INSERT INTO `orderingapp`.`customer`
 (`userID`,`userName`,`sex`,`email`,`password`,`phoneNumber`,`name`,`birthday`,`accumulatedCoin`)
 VALUES
-(1,'hoangD1','M','hoangnguyenR1@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111111','HoàngT 1','1990-02-01',5),
-(2,'hoangT2','M','hoangnguyenV2@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111112','HoàngY 2','1990-03-02',0),
-(3,'hoangH3','M','hoangnguyenM3@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111113','HoàngF 3','1990-04-03',3),
-(4,'hoangZ4','M','hoangnguyenN4@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111114','HoàngD 4','1990-05-04',4),
-(5,'hoangA5','M','hoangnguyenA5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111115','HoàngJ 5','1990-06-05',10),
-(6,'hoangC6','M','hoangnguyenB6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111116','HoàngE 6','1990-07-06',3),
-(7,'hoangB7','M','hoangnguyenF7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111117','HoàngK 7','1990-08-07',21),
-(8,'hoangY8','M','hoangnguyenC8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111118','HoàngL 8','1990-09-08',19),
-(9,'hoangO9','M','hoangnguyenU9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111119','HoàngN 9','1990-10-06',31),
-(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngA 10','1990-11-10',4),
+(1,'hoangD1','M','hoangnguyenR1@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111111','HoàngT 1','1990-02-01',93),
+(2,'hoangT2','M','hoangnguyenV2@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111112','HoàngY 2','1990-03-02',370),
+(3,'hoangH3','M','hoangnguyenM3@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111113','HoàngF 3','1990-04-03',0),
+(4,'hoangZ4','M','hoangnguyenN4@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111114','HoàngD 4','1990-05-04',0),
+(5,'hoangA5','M','hoangnguyenA5@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111115','HoàngJ 5','1990-06-05',45),
+(6,'hoangC6','M','hoangnguyenB6@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111116','HoàngE 6','1990-07-06',156),
+(7,'hoangB7','M','hoangnguyenF7@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111117','HoàngK 7','1990-08-07',0),
+(8,'hoangY8','M','hoangnguyenC8@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111118','HoàngL 8','1990-09-08',0),
+(9,'hoangO9','M','hoangnguyenU9@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111119','HoàngN 9','1990-10-06',45),
+(10,'hoang10','M','hoangnguyen10@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngA 10','1990-11-10',0),
 (11,'hoang11','M','hoangnguyen11@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngB 11','1991-02-10',0),
 (12,'hoang12','M','hoangnguyen12@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngP 12','1992-02-10',0),
 (13,'hoang13','M','hoangnguyen13@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0111111100','HoàngX 13','1993-02-10',0),
@@ -252,8 +252,8 @@ VALUES
 INSERT INTO `orderingapp`.`voucherExchangeByScore`
 (`programID`,`percentDiscount`,`exchangingScore`,`maxDiscountPrice`,`resID`)
 VALUES
-(1,10,5000,20000,1),
-(2,20,6000,15000,2);
+(1,10,50,10000,1),
+(2,20,60,12000,2);
 
 -- ------------------------VouhcerExchangeByCoin—--------------------------
 INSERT INTO `orderingapp`.`voucherExchangeByCoin`
@@ -282,13 +282,10 @@ VALUES
 
 -- -----------------------Voucher—--------------------------
 INSERT INTO `orderingapp`.`voucher`
-(`voucherID`,`isUsed`,`dateExchange`,`programID`,`cusID`,`orderID`)
+(`voucherID`,`isUsed`,`dateExchange`,`programID`,`cusID`)
 VALUES
-(1,0,'2022-12-30',1,2,2),
-(2,0,'2023-3-23',1,8,1),
-(3,0,'2023-07-07',1,6,3),
-(4,0,'2022-12-15',1,10,5),
-(5,0,'2022-12-01',1,4,6);
+(1,0,'2022-12-30',1,9),
+(2,0,'2023-3-23',2,2);
 
 
 
@@ -314,10 +311,10 @@ INSERT INTO `orderingapp`.`accumulatedScore`
 VALUES
 (1,93,1),
 (3,130,2),
-(2,138,2),
+(2,78,2),
 (3,156,6),
 (4,102,2),
-(1,102,9),
+(1,52,9),
 (1,45,5);
 
 -- ~~~~~~~~~~~~Order log~~~~~~~~~~~~~~~~~~
