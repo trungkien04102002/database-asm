@@ -1,189 +1,165 @@
-import { useNavigate } from 'react-router-dom';
-import { React, Fragment, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import photo1 from '../img/photo-1.png'
-import selectRes from '../img/selectRes.png'
-import selectMenu from '../img/selectMenu.png'
-import waitDelivery from '../img/waitDelivery.png'
-import illustration4 from '../img/illustration-4.png'
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import {useEffect,useState} from 'react'
+import AdminHeader from '../components/Header/adminHeader';
+import { getCustomers, getRestaurants } from '../api/userApi';
 
-import Header from '../components/Header/header';
-import Footer from '../components/Footer/footer';
+// const cates =[
+//     {
+//         name:'Thú cưng',
+//         path:'pet'
+//     },
+//     {
+//         name:'Thức ăn',
+//         path:'food'
+//     },
+//     {
+//         name:'Phụ kiện',
+//         path:'product'
+//     },
+//     {
+//         name:'Dịch vụ',
+//         path:'service'
+//     },
+// ]
 
 const Home = () => {
-    const restaurant = [
-        { name: 'Restaurant 1' },
-        { name: 'Restaurant 2' },
-        { name: 'Restaurant 3' },
-        { name: 'Restaurant 4' }
-    ]
 
-    const instruction = [
-        {
-            img: selectRes,
-            title: 'Select Restaurant',
-            description: 'Non enim praesent elementum facilisis leo vel fringilla. Lectus proin nibh nisl condimentum id. Quis varius quam quisque id diam vel.'
-        },
+    const navigate=useNavigate();
+    const [restaurants, setRestaurants] = useState([]);
+    const [customers, setCustomers] = useState([]);
+    const [orderField,setOrderField] = useState('1');
+    const [keySearch,setKeySearch] = useState('')
+    const [state,setState] = useState(false);
+    const [value, setValue] = useState(1);
+    const handleChange = (event) => {
+        setKeySearch(event.target.value)
+        console.log(keySearch)
+    }
 
-        {
-            img: selectMenu,
-            title: 'Select Menu',
-            description: 'Eu mi bibendum neque egestas congue quisque. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Odio ut sem nulla pharetra diam sit amet.'
-        },
-
-        {
-            img: waitDelivery,
-            title: 'Wait for Delivery',
-            description: 'Nunc lobortis mattis aliquam faucibus. Nibh ipsum consequat nisl vel pretium lectus quam id leo. A scelerisque purus semper eget. Tincidunt arcu non.'
+    // call api
+    useEffect(()=>{
+        (async () => {
+        // const order = await await getAllOrder(localStorage.getItem('user'));
+        // setListOrder(order);
+        const res = await getRestaurants(localStorage.getItem('user'),'')
+        const user = await getCustomers(localStorage.getItem('user'),orderField,keySearch)
+        if(res !== undefined){
+            if(res.msg===undefined){
+                setRestaurants(res);
+            }
         }
-    ]
 
-    const navigate = useNavigate()
-    const [selected, setSelected] = useState(restaurant[0])
+        if(user !== undefined){
+            if(user.msg===undefined){
+                setCustomers(user)
+            }
+        }
 
+        })()
+    },[state])
     return (
         <>
-            <Header />
+            <>
+             <div className="min-h-screen md:flex md:flex-row bg-gray-100 ">
+                <AdminHeader/>
+      
+                <div className="md:w-full">
 
-            {/* Photo-1 */}
-            <div className="flex items-center justify-center px-28 mb-24 bg-gradient-to-r from-rose-100 to-teal-100">
-                <div>
-                    <h1 className='font-bold text-6xl mb-2 text-gray-800 w-3/5'>The Best Restaurants In Your Home</h1>
-                    <p className='mb-2 text-gray-500 w-2/3'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-
-                    <div className='flex mt-10'>
-                        <Listbox value={selected} onChange={setSelected}>
-                            <div className="relative mt-1 w-1/2 mr-4">
-                                <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                    <span className="block truncate">{selected.name}</span>
-                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                        <ChevronUpDownIcon
-                                            className="h-5 w-5 text-gray-400"
-                                            aria-hidden="true"
-                                        />
-                                    </span>
-                                </Listbox.Button>
-                                <Transition
-                                    as={Fragment}
-                                    leave="transition ease-in duration-100"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                >
-                                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {restaurant.map((res, resIdx) => (
-                                            <Listbox.Option
-                                                key={resIdx}
-                                                className={({ active }) =>
-                                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                                                    }`
-                                                }
-                                                value={res}
-                                            >
-                                                {({ selected }) => (
-                                                    <>
-                                                        <span
-                                                            className={`block truncate ${selected ? 'font-normal text-gray-500' : 'font-light text-gray-500'
-                                                                }`}
-                                                        >
-                                                            {res.name}
-                                                        </span>
-                                                        {selected ? (
-                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                            </span>
-                                                        ) : null}
-                                                    </>
-                                                )}
-                                            </Listbox.Option>
-                                        ))}
-                                    </Listbox.Options>
-                                </Transition>
-                            </div>
-                        </Listbox>
-
-                        <button className="bg-orange-500 p-2 px-3 rounded-2xl border-2 border-orange-500 relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-white group"
-                            onClick={() => { navigate("./order") }}>
-                            <span className="w-0 h-0 rounded bg-white absolute top-0 left-0 ease-out duration-500 transition-all group-hover:w-full group-hover:h-full -z-1"></span>
-                            <span className="w-full text-white transition-colors duration-300 ease-in-out group-hover:text-orange-500 z-10">
-                                ORDER NOW
-                            </span>
-                        </button>
+                {/*restaurant card */}
+                    <div className="col-span-1 md:col-span-2 lg:col-span-4 lg:flex lg:justify-between">
+                    <p className="font-semibold md:pl-16 pt-20 lg:pt-16 md:text-justify text-center">Nhà hàng</p>
                     </div>
-                </div>
+                    
+                    <div className="flex md:flex-row flex-col flex-wrap items-center lg:justify-center md:pl-16 gap-4 pt-4 cursor-pointer">
 
-                <div className='relative'>
-                    <img
-                        className="w-9/10 p-4"
-                        src={photo1}
-                        alt="photo1"
-                    />
-
-                    <div className='absolute flex items-center rounded-xl top-40 right-10 bg-white p-4'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 bg-orange-500 rounded-lg mr-3">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" className='text-white' />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" className='text-white' />
-                        </svg>
-
-                        <div className='pr-5'>
-                            <p className='text-gray-700 text-base font-bold tracking-wide'>12 Restaurant</p>
-                            <p className='text-gray-500 text-xs'>In Your city</p>
+                    {
+                        
+                        restaurants.map((restaurant,index)=>(
+                        
+                        <div className="md:basis-1/3 lg:basis-[22%] bg-white p-6 rounded-xl border border-gray-50 hover:bg-blue-100"
+                        onClick={()=>{navigate(`/restaurant/${restaurant.resID}`)}}>
+                            <div className="flex justify-between items-start">
+                                <div className="flex flex-col">
+                                    <p className="text-xs text-gray-600 tracking-wide">ResID: {restaurant.resID}</p>
+                                    <h3 className="mt-1 text-lg text-blue-500 font-bold">{restaurant.resName}</h3>
+                                </div>
+                                <div className="bg-gray-200 p-2 md:p-1 xl:p-2 rounded-md">
+                                    {/* <img src="" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover"/> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+                                        </svg>
+                                </div>
+                            </div>
                         </div>
+                        
+                        ))
+                    }
+
+                    
+
+
                     </div>
-                </div>
-            </div>
 
-            {/*How it works */}
-            <div className='px-28'>
-                <div>
-                    <h1 className='font-bold text-4xl mb-2 text-gray-800 text-center'>How It Works</h1>
-                    <p className='mt-8 text-gray-500 text-center'>Magna sit amet purus gravida quis blandit turpis cursus. Venenatis tellus in <br />
-                        metus vulputate eu scelerisque felis.</p>
-                </div>
-
-                <div className='flex items-center text-center justify-center gap-2'>
-                    {instruction.map((item, index) => {
-                        return (
-                            <div key={index} className='px-2'>
-                                <img
-                                    className='w-auto mt-10 mx-auto'
-                                    src={item.img}
-                                    alt=''
-                                />
-                                <h1 className='font-bold text-xl text-gray-800 text-center py-4'>{item.title}</h1>
-                                <p className='text-gray-500 text-center text-sm px-2'>{item.description}</p>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-
-            {/*favorite restaurant */}
-            <div className='px-28 flex my-20'>
-                <img
-                    className='w-1/2 mx-auto px-3'
-                    src={illustration4}
-                    alt=''
-                />
-
-                <div className='ml-16 my-auto'>
-                    <h1 className='font-bold text-4xl mb-2 text-gray-800 w-4/5 pb-8'>Get the menu of your favorite restaurants every day</h1>
-                    <div className='flex'>
-                        <input type="email" id="email" class="text-gray-900 text-sm rounded-lg shadow-xl focus:outline-0 block w-1/2 p-2.5 mr-4" placeholder="Enter email address" />
-
-                        <button className="bg-orange-500 p-2 px-3 rounded-lg border-2 border-orange-500 relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-white group">
-                            <span className="w-0 h-0 rounded bg-white absolute top-0 left-0 ease-out duration-500 transition-all group-hover:w-full group-hover:h-full -z-1"></span>
-                            <span className="w-full text-white transition-colors duration-300 ease-in-out group-hover:text-orange-500 z-10">
-                                SUBCRIBE
-                            </span>
-                        </button>
+                {/*Customer list */}
+                <p className="font-semibold md:pl-16 pt-8 lg:pt-8 md:text-justify text-center pb-4">Order in process</p>
+                
+                {/* search */}
+                <div class="flex items-center md:pl-16 pb-4">   
+                    <label for="simple-search" class="sr-only">Search</label>
+                    <div class="relative max-w-[350px]">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input onChange={handleChange} type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Search" required/>
                     </div>
+                    <button onClick={()=>{setState(!state)}} class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span class="sr-only">Search</span>
+                    </button>
                 </div>
-            </div>
 
-            <Footer />
+                {/* sort */}
+                <label for="role" className=" md:pl-16 max-w-sm block mb-2 text-sm font-medium text-gray-900 ">Select your role</label>
+                <select value={orderField}  onChange={(e)=>{setOrderField(e.target.value);setState(!state)}}  id="role" className="md:ml-16 mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5">
+                    {/* <option selected>Choose a role</option> */}
+                    <option value="1">ID</option>
+                    <option value="2">Name</option>
+                    <option value="3">Email</option>
+                    <option value="4">Spent</option>
+                </select>
+                
+                {/* Customer */}
+                <div className="bg-white rounded-lg overflow-x-auto mx-16 divide-y-2 px-8">
+
+                <p className="section font-semibold p-4 md:text-justify text-center ">Customer</p>
+                    
+
+                    {
+                        customers.map((customer,key)=>(
+                            <li key={key} onClick={()=>{navigate(`/updateCustomer/${customer.userID}`)}} class="cursor-pointer py-3 flex justify-between text-sm items-center mx-auto text-gray-500 font-semibold">
+                                <p class="px-4 font-semibold">userID: {customer.userID}</p>
+                                <p class="px-4 text-gray-600">userName: {customer.userName}</p>
+                                {/* <p class="px-4 tracking-wider">Cash</p> */}
+                                <p class="px-4 text-blue-600">{customer.moneySpent} VND</p>
+                                <p class="md:text-base text-gray-800 flex items-center gap-2">Coin : {customer.accumulatedCoin}</p>
+                            </li>
+                        ))
+                    }
+
+                    <div className="">
+
+                    </div>
+
+                </div>
+
+
+                </div>
+
+            </div>
         </>
-    )
+        </>
+    );
 }
 
 export default Home;
