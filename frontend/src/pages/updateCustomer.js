@@ -29,20 +29,6 @@ const UpdateCustomer = ({data}) => {
         name:res.name,
       });
     
-    //   useEffect(()=>{
-    //     (async () => {
-    //         const res = await updateCustomer(localStorage.getItem('user'),formValue); 
-    //         let result = res;
-    //         if (result["msg"]){
-    //             setDeleteRes(result["msg"]);
-    //             return;
-    //         }
-    //         setDeleteRes("Successfully update")
-    //         // console.log(result);
-
-
-    //       })()
-    // },[status]);
 
     var deleteHandler = async() => {
         let result = await deleteCustomer(localStorage.getItem('user'),res.userID)
@@ -70,9 +56,6 @@ const UpdateCustomer = ({data}) => {
             [event.target.name]: event.target.value
         });
     }
-
-
-    
 
      //notify
      const handleNotify=()=>{
@@ -102,6 +85,14 @@ const UpdateCustomer = ({data}) => {
              </a>
                 <h1 className="block w-full text-center text-gray-800 text-2xl font-bold mb-6">Update Product</h1>
                 <div >
+
+                     {/* userName */}
+                    <div className="flex flex-col mb-4">
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">User name</label>
+                        <input disabled
+                        className="border py-2 px-3 text-grey-800 cursor-not-allowed" type="text" name=" discountedPrice" id=" dishDetails" defaultValue={res.userName}/>
+                    </div>
+
                     {/*Name*/}
                     <div className="flex flex-col mb-4">
                         <label className="mb-2 font-bold text-lg text-gray-900" htmlFor="name">Name</label>
@@ -135,6 +126,27 @@ const UpdateCustomer = ({data}) => {
                         <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">Phone number</label>
                         <input onChange={handleChangeText}
                         className="border py-2 px-3 text-grey-800" type="text" name="phoneNumber" id=" dishDetails" defaultValue={res.phoneNumber}/>
+                    </div>
+
+                    {/* Role */}
+                    <div className="flex flex-col mb-4">
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">Role</label>
+                        <input disabled
+                        className="border py-2 px-3 text-grey-800 cursor-not-allowed" type="text" name=" discountedPrice" id=" dishDetails" defaultValue={res.role}/>
+                    </div>
+
+                    {/* Coin */}
+                    <div className="flex flex-col mb-4">
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">Accumulated Coin</label>
+                        <input disabled
+                        className="border py-2 px-3 text-grey-800 cursor-not-allowed" type="text" name=" discountedPrice" id=" dishDetails" defaultValue={res.accumulatedCoin}/>
+                    </div>
+
+                    {/* Money */}
+                    <div className="flex flex-col mb-4">
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">Money spent</label>
+                        <input disabled
+                        className="border py-2 px-3 text-grey-800 cursor-not-allowed" type="text" name=" discountedPrice" id=" dishDetails" defaultValue={res.moneySpent}/>
                     </div>
 
                     <div className="flex flex-wrap">

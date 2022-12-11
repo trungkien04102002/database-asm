@@ -4,24 +4,6 @@ import {useEffect,useState} from 'react'
 import AdminHeader from '../components/Header/adminHeader';
 import { getCustomers, getRestaurants } from '../api/userApi';
 
-// const cates =[
-//     {
-//         name:'Thú cưng',
-//         path:'pet'
-//     },
-//     {
-//         name:'Thức ăn',
-//         path:'food'
-//     },
-//     {
-//         name:'Phụ kiện',
-//         path:'product'
-//     },
-//     {
-//         name:'Dịch vụ',
-//         path:'service'
-//     },
-// ]
 
 const Home = () => {
 
@@ -85,7 +67,6 @@ const Home = () => {
                                     <h3 className="mt-1 text-lg text-blue-500 font-bold">{restaurant.resName}</h3>
                                 </div>
                                 <div className="bg-gray-200 p-2 md:p-1 xl:p-2 rounded-md">
-                                    {/* <img src="" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover"/> */}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
                                         </svg>
@@ -135,18 +116,25 @@ const Home = () => {
 
                 {/* Customer */}
                 <div className="bg-white rounded-lg overflow-x-auto mx-16 divide-y-2 px-8">
-
+                
+                <div className="flex flex-row justify-between">
                 <p className="section font-semibold p-4 md:text-justify text-center ">Customer</p>
+                <p className="section font-semibold p-4 md:text-justify text-center ">User name</p>
+                <p className="section font-semibold p-4 md:text-justify text-center ">Money spent</p>
+                <p className="section font-semibold p-4 md:text-justify text-center ">Accumulated coin</p>
+
+
+                </div>
                     
 
                     {
                         customers.map((customer,key)=>(
                             <li key={key} onClick={()=>{navigate(`/updateCustomer/${customer.userID}`)}} class="cursor-pointer py-3 flex justify-between text-sm items-center mx-auto text-gray-500 font-semibold">
-                                <p class="px-4 font-semibold">userID: {customer.userID}</p>
-                                <p class="px-4 text-gray-600">userName: {customer.userName}</p>
+                                <p class="px-4 font-semibold">ID: {customer.userID}</p>
+                                <p class="text-gray-600">{customer.userName}</p>
                                 {/* <p class="px-4 tracking-wider">Cash</p> */}
-                                <p class="px-4 text-blue-600">{customer.moneySpent} VND</p>
-                                <p class="md:text-base text-gray-800 flex items-center gap-2">Coin : {customer.accumulatedCoin}</p>
+                                <p class="text-blue-600 pr-12">{customer.moneySpent} VND</p>
+                                <p class="md:text-base text-gray-800 pr-16">{customer.accumulatedCoin}</p>
                             </li>
                         ))
                     }
