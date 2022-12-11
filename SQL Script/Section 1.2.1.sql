@@ -48,6 +48,8 @@ BEGIN
 		UNION SELECT userID FROM Employee WHERE email = $email OR userName = $userName
     )) THEN 
 		SET message_error = 'USER HAS ALREADY EXISTED';
+	ELSEIF $sex != 'F' AND $sex != 'M' THEN
+		SET message_error = 'SEX MUST BE F OR M';
 	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';
 	ELSEIF ( check_phone_customer($phoneNumber) != 'TRUE') THEN
@@ -84,6 +86,8 @@ BEGIN
 			UNION SELECT userID FROM Employee WHERE email = $email
     ))) THEN 
 		SET message_error = 'THIS EMAIL HAS BEEN USED BY OTHER USER';
+	ELSEIF $sex != 'F' AND $sex != 'M' THEN
+		SET message_error = 'SEX MUST BE F OR M';
 	ELSEIF check_age_customer($birthday) = false THEN
 		SET message_error = 'AGE IS NOT VALID, CUSTOMER MUST BE AT LEAST 15 YEARS OLD AND ALIVE';
 	ELSEIF ( check_phone_customer($phoneNumber) != 'TRUE') THEN
@@ -125,6 +129,8 @@ CALL insertCustomer('daylataikhoanthu','datluong@gmail.com','$2y$10$/MnqhU72XAJM
 ,'Nguyễn Thử', '1988-12-03','F'); -- Trùng với email admin
 CALL insertCustomer('kienha1','datdtttt@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
 ,'Nguyễn Thử', '1988-12-03','F'); -- Trùng với userName employee
+CALL insertCustomer('kienhas1','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
+,'Nguyễn Thử', '1988-12-03','A'); -- Giới tính không hợp lệ
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','0999999999'
 ,'Nguyễn Thử', '2022-12-03','F'); -- Độ tuổi invalid
 CALL insertCustomer('daylataikhoanthu','nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','12345'
@@ -141,6 +147,8 @@ CALL updateCustomer(1,'datluong@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy
 ,'Nguyễn Thi A', '1989-12-23','M');
 CALL updateCustomer(1,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','1111111111'
 ,'Nguyễn Thi', '2021-12-23','M');
+CALL updateCustomer(1,'nguyenthu123@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','1111111111'
+,'Nguyễn Thi A', '1989-12-23','O');
 CALL updateCustomer(1,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','111111'
 ,'Nguyễn Thi', '1989-12-23','M');
 CALL updateCustomer(1,'nguyenthu@gmail.com','$2y$10$/MnqhU72XAJM4IEg6QCpWu8zOBtxy6iskzPl04nf1VWlaRdUh5RYC','11ab111111'
