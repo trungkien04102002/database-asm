@@ -13,6 +13,8 @@ const UpdateDish = ({dishes}) => {
     let dishID = dishId;
     const [status, setStatus] =useState(false);
     const [state,setState] =useState(true);
+    const [deleteRes, setDeleteRes] =useState("");
+    const navigate = useNavigate();
 
     let dish = dishes.find( ({ dishID }) => dishID === parseInt(dishId) ) ;
 
@@ -29,35 +31,27 @@ const UpdateDish = ({dishes}) => {
         isAvailable:dish.isAvailable,
         size:dish.size,
       });
-    
-    // useEffect(()=>{
-    //     (async () => {
-    //         const res = await updateDish(localStorage.getItem('user'),formValue); 
-    //         let result =res;
-    //         // console.log(result);
 
-    //         if(result === undefined) {
-    //             notify ='warning'
-    //             titleNotify="Warning"
-    //             messageNotify='Please enter full input'
-    //             // setState1(!state1)
-    //         }
-        
-    //         if(result !==undefined) {
-    //             if(result.msg !== undefined) {
-    //                 notify ='danger'
-    //                 titleNotify="update failure"
-    //                 messageNotify=result.msg;      
-    //             }
-    //             else if(result.email !== undefined) {
-    //                 notify ='success'
-    //                 titleNotify="Register successful"
-    //                 messageNotify="Please back to home";
-    //             }    
-    //         }
-    //       })()
-    // },[status]);
 
+    var deleteHandler = async() => {
+        let result = await deleteDish(localStorage.getItem('user'),formValue.dishID)
+        if (result["msg"] == "success"){
+            navigate("/")
+        }
+        setDeleteRes("Cannot delete due to inside constraints");
+    }
+
+    var updateHandler = async() => {
+        setStatus(!status);
+        const res = await updateDish(localStorage.getItem('user'),formValue); 
+        let result = res;
+        if (result["msg"]){
+            setDeleteRes(result["msg"]);
+            return;
+        }
+        setDeleteRes("Successfully update")
+        // console.log(result);
+    }
     const handleChangeText = (event) => {
     setformValue({
         ...formValue,
@@ -103,7 +97,7 @@ const UpdateDish = ({dishes}) => {
 
                     {/* Discription */}
                     <div className="flex flex-col mb-4">
-                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor="dishDescription">Discription</label>
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor="dishDescription">Description</label>
                         <input onChange={handleChangeText}
                         className="border py-2 px-3 text-grey-800" type="text" name="dishDescription" id="dishDescription" defaultValue={dish.dishDescription}/>
                     </div>
@@ -131,7 +125,7 @@ const UpdateDish = ({dishes}) => {
 
                     {/* resID */}
                     <div className="flex flex-col mb-4">
-                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">resID</label>
+                        <label className="mb-2 font-bold text-lg text-gray-900" htmlFor=" dishDetails">Res ID</label>
                         <input disabled
                         className="border py-2 px-3 text-grey-800 cursor-not-allowed" type="text" name=" discountedPrice" id=" dishDetails" defaultValue={dish.resID}/>
                     </div>
@@ -145,10 +139,12 @@ const UpdateDish = ({dishes}) => {
 
                     <div className="flex flex-wrap">
 
-                    <button onClick={()=>{updateDish(localStorage.getItem('user'),formValue); ;handleNotify()}} className="block bg-teal-400 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Update</button>
-                    <button onClick={async()=>{ await deleteDish(localStorage.getItem('user'),dishId)}} className="block bg-red-400 hover:bg-red-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Delete</button>
+                    <button onClick={updateHandler} className="block bg-teal-400 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Update</button>
+                    <button onClick={deleteHandler} className="block bg-red-400 hover:bg-red-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Delete</button>
                     
                     </div>
+                    {deleteRes == "Successfully update" && <p class="text-green-500 pl-8 text-center pt-5">{deleteRes}</p>}
+                    {deleteRes != "Successfully update" && <p class="text-red-500 pl-8 text-center pt-5">{deleteRes}</p>}
 
                 </div>
             </div>

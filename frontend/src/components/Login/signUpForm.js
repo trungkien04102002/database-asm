@@ -11,15 +11,15 @@ import { signUp } from "../../api/userApi";
 
 const SignInForm = () => {
     const navigate = useNavigate()
-    const [startDate, setStartDate] = useState(new Date());
+    // const [startDate, setStartDate] = useState(new Date());
     const [state,setState] = useState(true);
-    const [state1,setState1] = useState(true);
+    // const [state1,setState1] = useState(true);
     const [sex,setSex] = useState('M');
     var result;
-    console.log(startDate)
     var notify ='warning';
     var titleNotify='Warning';
     var messageNotify='Please enter full input'
+    const [deleteRes, setDeleteRes] =useState("");
 
     // save text
     const [formValue, setformValue] = useState({
@@ -27,6 +27,7 @@ const SignInForm = () => {
         phoneNumber:'',
         password: '',
         phoneNumber:'',
+        birthday:'1999-11-08',
         email:'',
         sex:'M'
       });
@@ -39,35 +40,47 @@ const SignInForm = () => {
       }
 
     // call api    
-    useEffect(()=>{
-        (async () => {
-            const res = await signUp(formValue); 
-            result =res;
-            // console.log(result);
+    // useEffect(()=>{
+    //     (async () => {
+    //         const res = await signUp(formValue); 
+    //         result =res;
+    //         // console.log(result);
 
-            if(result === undefined) {
-                notify ='warning'
-                titleNotify="Warning"
-                messageNotify='Please enter full input'
-                setState1(!state1)
-            }
+    //         if(result === undefined) {
+    //             notify ='warning'
+    //             titleNotify="Warning"
+    //             messageNotify='Please enter full input'
+    //             setState1(!state1)
+    //         }
         
-            if(result !==undefined) {
-                if(result.msg !== undefined) {
-                    notify ='danger'
-                    titleNotify="Register failure"
-                    messageNotify=result.msg;      
-                }
-                else if(result.email !== undefined) {
-                    notify ='success'
-                    titleNotify="Register successful"
-                    messageNotify="Please back to Login page to login";
-                }    
-            }
-          })()
-    },[state]);
+    //         if(result !==undefined) {
+    //             if(result.msg !== undefined) {
+    //                 notify ='danger'
+    //                 titleNotify="Register failure"
+    //                 messageNotify=result.msg;      
+    //             }
+    //             else if(result.email !== undefined) {
+    //                 notify ='success'
+    //                 titleNotify="Register successful"
+    //                 messageNotify="Please back to Login page to login";
+    //             }    
+    //         }
+    //       })()
+    // },[state]);
 
-   
+    var addHandler = async() => {
+        console.log(formValue);
+        const res = await signUp(formValue); 
+        let result = res;
+        if (result["msg"]){
+            setDeleteRes(result["msg"]);
+            return;
+        }
+        else {
+            navigate("/")
+        }
+        // console.log(result);
+    }
     //notify
     const handleNotify=()=>{
         Store.addNotification({
@@ -129,25 +142,20 @@ const SignInForm = () => {
 
                             {/* Sex */}
                             <label for="sex" className=" max-w-sm block text-sm font-medium text-gray-900 ">Select your sex</label>
-                            <select value={sex}  onChange={(e)=>{setSex(e.target.value);setState(!state)}}  id="sex" className="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                            <select value={sex}  onChange={(e)=>{setformValue({...formValue,sex: e.target.value});setState(!state)}}  id="sex" className="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                                 {/* <option selected>Choose a role</option> */}
                                 <option value="M">Male</option>
                                 <option value="F">FeMale</option>
                             </select>
 
                             {/* Birthday */}
-                            {/* <div class="relative">
+                            <div class="relative">
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                                 </div>
-                                <input datepicker datepicker-format="mm/dd/yyyy" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Select date"/>
-                            </div> */}
-                            <label for="birthday" className="max-w-sm block text-sm font-medium text-gray-900 ">Select your birthday</label>
-                            <DatePicker id="birthday" className="p-2 rounded-xl border border-gray-300" 
-                            selected={startDate} 
-                            onChange={(date:Date) => setStartDate(date)} 
-                            dateFromat='YYYY-MM-dd'
-                            />
+                                <input name="birthday" onChange={handleChangeText} datepicker datepicker-format="mm/dd/yyyy" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Select date"/>
+                            </div>
+
                             
 
                             {/* password */}
@@ -157,12 +165,14 @@ const SignInForm = () => {
                             </div>
 
                             <button className="w-full bg-orange-500 p-2 px-3 rounded-xl border-2 border-orange-500 relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-white group"
-                                onClick={() => { navigate("/") }} type='submit'>
+                                onClick={addHandler} type='submit'>
                                 <span className="w-0 h-0 rounded bg-white absolute top-0 left-0 ease-out duration-500 transition-all group-hover:w-full group-hover:h-full -z-1"></span>
                                 <span className="w-full text-white transition-colors duration-300 ease-in-out group-hover:text-orange-500 z-10">
                                     SIGN UP
                                 </span>
                             </button>
+                            {/* {deleteRes == "Successfully update" && <p class="text-green-500 pl-8 text-center pt-5">{deleteRes}</p>} */}
+                            {deleteRes != "Successfully update" && <p class="text-red-500 text-center pt-4">{deleteRes}</p>}
 
                             <p className="text-sm font-light text-gray-500">
                                 Have an account yet? Sign In

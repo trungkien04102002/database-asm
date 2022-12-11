@@ -129,6 +129,10 @@ const Home = () => {
                     <option value="4">Spent</option>
                 </select>
                 
+                <button onClick={()=>{navigate("/signup")}} class="p-2.5 ml-16 mb-4 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        <span class="">Add customer</span>
+                </button>
+
                 {/* Customer */}
                 <div className="bg-white rounded-lg overflow-x-auto mx-16 divide-y-2 px-8">
 

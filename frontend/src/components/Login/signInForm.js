@@ -47,7 +47,7 @@ const SignInForm = () => {
                     path ='/'
                     notify ='success'
                     titleNotify="Login successful"
-                    messageNotify="Please back to Home page";                  
+                    messageNotify="Please back to Home page"; 
                 }    
             }
 
@@ -121,7 +121,7 @@ const SignInForm = () => {
 
 
                             <button className="w-full bg-orange-500 p-2 px-3 rounded-xl border-2 border-orange-500 relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-white group"
-                                onClick={() => { formValue.role= value;setState(!state);handleNotify(); }} 
+                                onClick={() => { formValue.role= value;setState(!state);handleNotify(); navigate(path);}} 
                                 type='submit'>
                                 <span className="w-0 h-0 rounded bg-white absolute top-0 left-0 ease-out duration-500 transition-all group-hover:w-full group-hover:h-full -z-1"></span>
                                 <span className="w-full text-white transition-colors duration-300 ease-in-out group-hover:text-orange-500 z-10">

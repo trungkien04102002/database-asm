@@ -55,14 +55,14 @@
                 }
                 switch ($path[3]){
                     case "signup":
+                        if (!isset($_POST["email"]) || !isset($_POST["name"]) || !isset($_POST["sex"])  || !isset($_POST["birthday"])
+                        || !isset($_POST["phoneNumber"]) || !isset($_POST["password"])|| !isset($_POST["userName"])){
+                            throw new Exception("Lack information to create new account", 400);
+                        }
                         if (UserModel::checkUserExistence($_POST["userName"],$_POST["email"])){
                             throw new Exception("User has already existed!", 400);
                         }
                         else {
-                            if (!isset($_POST["email"]) || !isset($_POST["name"]) || !isset($_POST["sex"])  || !isset($_POST["birthday"])
-                                || !isset($_POST["phoneNumber"]) || !isset($_POST["password"])|| !isset($_POST["userName"])){
-                                throw new Exception("Lack information to create new account", 400);
-                            }
                             $email = $_POST["email"];
                             $userName = $_POST["userName"];
                             $name = $_POST["name"];
@@ -70,6 +70,11 @@
                             $birthday = $_POST["birthday"];
                             $phoneNumber = $_POST["phoneNumber"];
                             $hashPassword =  password_hash($_POST["password"],PASSWORD_DEFAULT);
+                            if ($email=="" || $userName=="" || $name==""
+                                || $sex == "" || $phoneNumber=="" || $hashPassword=="")
+                            {
+                                throw new Exception("Lack information",400);
+                            }
                             echo json_encode(UserModel::createNewCus($email, $userName, $name, $sex, $phoneNumber, $hashPassword, $birthday));
                         };
                         break;

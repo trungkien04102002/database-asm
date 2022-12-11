@@ -15,6 +15,7 @@ const AddDish = () => {
     var notify ='success';
     var titleNotify='Update successful';
     var messageNotify=''
+    const [deleteRes, setDeleteRes] =useState("");
 
     const [formValue, setformValue] = useState({
         resID : '',
@@ -25,33 +26,16 @@ const AddDish = () => {
         size:'',
       });
 
-    useEffect(()=>{
-        (async () => {
-            const res = await createDish(localStorage.getItem('user'),formValue); 
-            let result =res;
-            // console.log(result);
-
-            if(result === undefined) {
-                notify ='warning'
-                titleNotify="Warning"
-                messageNotify='Please enter full input'
-                // setState1(!state1)
-            }
-        
-            if(result !==undefined) {
-                if(result.msg !== undefined) {
-                    notify ='danger'
-                    titleNotify="update failure"
-                    messageNotify=result.msg;      
-                }
-                else if(result.email !== undefined) {
-                    notify ='success'
-                    titleNotify="Register successful"
-                    messageNotify="Please back to home";
-                }    
-            }
-          })()
-    },[status]);
+    var addHandler = async() => {
+        const res = await createDish(localStorage.getItem('user'),formValue); 
+        let result = res;
+        if (result["msg"]){
+            setDeleteRes(result["msg"]);
+            return;
+        }
+        setDeleteRes("Successfully update")
+        // console.log(result);
+    }
 
     const handleChangeText = (event) => {
         setformValue({
@@ -82,7 +66,7 @@ const AddDish = () => {
             <AdminHeader/>
 
             <div class="flex justify-center items-center h-screen w-full">
-                <div class="w-1/2 bg-white rounded shadow-2xl p-8 m-4">
+                <div class="w-1/2 mt-60 bg-white rounded shadow-2xl p-8 m-4">
                     <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">Create dish</h1>
                     <div >
                     {/*resID */}
@@ -132,10 +116,11 @@ const AddDish = () => {
 
                     <div className="flex flex-wrap">
 
-                    <button onClick={()=>{formValue.isAvailable =available; setStatus(!status) ;handleNotify()}} className="block bg-teal-400 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Update</button>
+                    <button onClick={addHandler} className="block bg-teal-400 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Add</button>
 
                     
                     </div>
+                    {deleteRes != "Successfully update" && <p class="text-red-500 pl-8 text-center pt-5">{deleteRes}</p>}
 
                 </div>
                     <div class="uppercase text-md font-semibold text-center p-4 rounded hover:text-blue-500 cursor-pointer" type="submit"

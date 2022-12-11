@@ -77,7 +77,8 @@
                 switch ($path[3]){
                     case "dish":
                         if (!isset($_POST["dishName"]) || !isset($_POST["isAvailable"]) || !isset($_POST["dishDescription"])
-                            || !isset($_POST["unitPrice"]) || !isset($_POST["resID"]) || !isset($_POST["size"]) ){
+                            || !isset($_POST["unitPrice"]) || !isset($_POST["resID"]) || !isset($_POST["size"]) )
+                        {
                             throw new Exception("Lack information",400);
                         }
                         $dishName = $_POST["dishName"];
@@ -86,7 +87,10 @@
                         $size = $_POST["size"];
                         $unitPrice = $_POST["unitPrice"];
                         $resID = $_POST["resID"];
-
+                        if ($dishName=="" || $dishDescription=="" || $isAvailable==""
+                            || $size == "" || $unitPrice=="" || $resID==""){
+                            throw new Exception("Lack information",400);
+                        }
                         echo json_encode(OtherModel::insertDish($dishName,$resID,$size,$isAvailable,$dishDescription,$unitPrice));
                         break;                       
                 }

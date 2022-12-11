@@ -24,11 +24,14 @@ export const signIn = async(formValue) => {
 
 export const signUp = async(formValue) => {
 
-    if(formValue.userName==='' || formValue.password==='' || formValue.email===''){
-        return;
-    }
 
     try {
+      let d = new Date(formValue["birthday"])
+      let day = d.getDate();
+      let month = d.getMonth();
+      let year = d.getFullYear();
+      formValue["birthday"] = year + "-" + month +"-" +  day;
+      console.log(formValue);
       // make axios post request
       const res = await axios({
         method: "post",
