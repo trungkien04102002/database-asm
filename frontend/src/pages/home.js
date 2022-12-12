@@ -8,6 +8,9 @@ import { getCustomers, getRestaurants } from '../api/userApi';
 const Home = () => {
 
     const navigate=useNavigate();
+    if (localStorage.getItem('user')===undefined){
+        navigate('/signIn')
+    }
     const [restaurants, setRestaurants] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [orderField,setOrderField] = useState('1');

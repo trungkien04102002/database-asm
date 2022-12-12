@@ -6,7 +6,7 @@ DROP TRIGGER IF EXISTS `update_state_score_point_beforeAddOrderLog` |
 CREATE TRIGGER `update_state_score_point_beforeAddOrderLog` BEFORE INSERT ON `orderlog`
 FOR EACH ROW
 BEGIN
-    DECLARE $cus_id_update INT;
+    DECLARE $cus_id_update INT;	
     DECLARE $branch_id_update INT;
     DECLARE $res_id_update INT;
     DECLARE $bonus_coin INT;

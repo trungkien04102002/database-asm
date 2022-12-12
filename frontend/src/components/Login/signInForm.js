@@ -99,8 +99,8 @@ const SignInForm = () => {
                         <div className="space-y-4 md:space-y-6">
                             {/* userName */}
                             <div>
-                                <label htmlFor="userName" className="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                                <input onChange={handleChange} type="userName" name="userName" id="userName" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required="" />
+                                <label htmlFor="userName" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                                <input onChange={handleChange} type="userName" name="userName" id="userName" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter username" required="" />
                             </div>
 
                             {/* password */}
